@@ -1,0 +1,29 @@
+<jaxb:bindings xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="2.1"
+               xmlns:inheritance="http://jaxb2-commons.dev.java.net/basic/inheritance"
+               xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+               xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+               xmlns:annox="http://annox.dev.java.net"
+               jaxb:extensionBindingPrefixes="xjc annox inheritance">
+
+    <jaxb:bindings schemaLocation="./user/user.xsd">
+
+        <jaxb:bindings node="//xs:complexType[@name='paramMapType']">
+            <inheritance:extends>java.util.HashMap&lt;String, String&gt;</inheritance:extends>
+            <jaxb:class name="permissionMap"/><!--
+            <jaxb:property>
+                <jaxb:baseType name="hu.gemesi.taskmaker.dto.common.customerUser.PermissionMap" />
+            </jaxb:property>-->
+        </jaxb:bindings>
+
+    </jaxb:bindings>
+    <jaxb:globalBindings generateIsSetMethod="true">
+        <xjc:serializable uid="1"/>
+
+         <xjc:javaType xmlType="xsd:date" name="java.time.LocalDate" adapter="hu.gemesi.taskmaker.common.dto.xml.adapter.LocalDateAdapter"/>
+        <!-- <xjc:javaType xmlType="xsd:time" name="java.time.OffsetTime" adapter="hu.icellmobilsoft.coffee.dto.adapter.OffsetTimeXmlAdapter"/> -->
+        <xjc:javaType xmlType="xsd:dateTime" name="java.time.OffsetDateTime" adapter="hu.gemesi.taskmaker.common.dto.xml.adapter.OffsetDateTimeAdapter"/>
+
+    </jaxb:globalBindings>
+
+
+</jaxb:bindings>

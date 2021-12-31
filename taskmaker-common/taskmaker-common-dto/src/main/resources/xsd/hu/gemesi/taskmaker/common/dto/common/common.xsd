@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://common.dto.taskmaker.gemesi.hu/common"
+            xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+            targetNamespace="http://common.dto.taskmaker.gemesi.hu/common"
+            elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+    <xsd:complexType name="baseResponseType">
+        <xsd:sequence>
+            <xsd:element name="Result">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="errorCode" type="xsd:string"/>
+                        <xsd:element name="statusCode" type="xsd:int"/>
+                        <xsd:element name="message" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ContextType">
+        <xsd:sequence>
+            <xsd:element name="requestId" type="xsd:string"/>
+            <xsd:element name="timestamp" type="xsd:dateTime"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="BaseRequestType">
+        <xsd:sequence>
+            <xsd:element name="context" type="ContextType"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="BaseResponsesType">
+        <xsd:sequence>
+            <xsd:element name="context" type="ContextType"/>
+            <xsd:element name="message" type="xsd:string"/>
+            <xsd:element name="funcCode" type="FuncCode"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:simpleType name="FuncCode">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="OK">
+                <xsd:annotation>
+                    <xsd:documentation>TestLink</xsd:documentation>
+                    <xsd:appinfo>
+                        <jaxb:typesafeEnumMember name="OK"/>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="WARN">
+                <xsd:annotation>
+                    <xsd:documentation>TestLink</xsd:documentation>
+                    <xsd:appinfo>
+                        <jaxb:typesafeEnumMember name="WARN"/>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="ERROR">
+                <xsd:annotation>
+                    <xsd:documentation>TestLink</xsd:documentation>
+                    <xsd:appinfo>
+                        <jaxb:typesafeEnumMember name="ERROR"/>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="RoleType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Admin">
+                <xsd:annotation>
+                    <xsd:documentation>TestLink</xsd:documentation>
+                    <xsd:appinfo>
+                        <jaxb:typesafeEnumMember name="Admin"/>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="GroupAdmin">
+                <xsd:annotation>
+                    <xsd:documentation>TestLink</xsd:documentation>
+                    <xsd:appinfo>
+                        <jaxb:typesafeEnumMember name="GroupAdmin"/>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Solver">
+                <xsd:annotation>
+                    <xsd:documentation>TestLink</xsd:documentation>
+                    <xsd:appinfo>
+                        <jaxb:typesafeEnumMember name="Solver"/>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:complexType name="SessionDataType">
+        <xsd:sequence>
+            <xsd:element name="userId" type="xsd:string"/>
+            <xsd:element name="sessionToken" type="xsd:string"/>
+            <xsd:element name="sessionEnd" type="xsd:dateTime"/>
+            <xsd:element name="refreshToken" type="xsd:string"/>
+            <xsd:element name="refreshTokenExpiry" type="xsd:dateTime"/>
+            <xsd:element name="role" type="RoleType"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="RedisUserAuthenticationType">
+        <xsd:sequence>
+            <xsd:element name="sessionData" type="SessionDataType"/>
+            <xsd:element name="sessionId" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="baseResponse">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="baseResponseType"/>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="BaseRequest">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="BaseRequestType"/>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="BaseResponseElement">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="BaseResponsesType"/>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

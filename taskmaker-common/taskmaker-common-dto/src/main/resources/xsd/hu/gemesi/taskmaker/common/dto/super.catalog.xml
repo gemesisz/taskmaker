@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+
+    <!--COMMON package-->
+    <public publicId="http://common.dto.taskmaker.gemesi.hu/common" uri="./common/common.xsd"/>
+
+    <public publicId="http://user.dto.taskmaker.gemesi.hu/user" uri="./user/user.xsd"/>
+    <public publicId="http://userauth.dto.taskmaker.gemesi.hu/userauth" uri="./user/userauth.xsd"/>
+    <public publicId="http://matcher.dto.taskmaker.gemesi.hu/matcher" uri="./matcher/matcher.xsd"/>
+    <public publicId="http://prize.dto.taskmaker.gemesi.hu/prize" uri="./prize/prize.xsd"/>
+
+</catalog>

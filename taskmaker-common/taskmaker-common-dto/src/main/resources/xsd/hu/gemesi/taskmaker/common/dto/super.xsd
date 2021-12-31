@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://common.dto.taskmaker.gemesisz.hu/super"
+            targetNamespace="http://common.dto.taskmaker.gemesisz.hu/super"
+            elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+    <xsd:import namespace="http://common.dto.taskmaker.gemesi.hu/common"/>
+    <xsd:import namespace="http://user.dto.taskmaker.gemesi.hu/user"/>
+    <xsd:import namespace="http://userauth.dto.taskmaker.gemesi.hu/userauth"/>
+    <xsd:import namespace="http://matcher.dto.taskmaker.gemesi.hu/matcher"/>
+    <xsd:import namespace="http://prize.dto.taskmaker.gemesi.hu/prize"/>
+
+</xsd:schema>

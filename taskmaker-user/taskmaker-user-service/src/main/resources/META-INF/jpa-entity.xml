@@ -1,0 +1,13 @@
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+                 version="2.0">
+
+    <entity class="hu.gemesi.taskmaker.common.model.user.UserSession"/>
+    <entity class="hu.gemesi.taskmaker.common.model.user.SecurityUser"/>
+    <entity class="hu.gemesi.taskmaker.common.model.user.CustomerUser"/><!--
+    <entity class="hu.gemesi.taskmaker.common.model.group.Group"/>
+    <entity class="hu.gemesi.taskmaker.common.model.group.Grouping"/>
+    <entity class="hu.gemesi.taskmaker.common.model.customerUser.UserPermission"/>-->
+
+</entity-mappings>

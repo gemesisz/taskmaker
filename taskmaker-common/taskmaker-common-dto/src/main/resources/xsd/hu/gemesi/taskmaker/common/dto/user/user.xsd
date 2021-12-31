@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://user.dto.taskmaker.gemesi.hu/user"
+            xmlns:common="http://common.dto.taskmaker.gemesi.hu/common"
+            xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+            targetNamespace="http://user.dto.taskmaker.gemesi.hu/user"
+            elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+    <xsd:complexType name="userRegistrationRequestType">
+        <xsd:sequence>
+            <xsd:element name="username" type="xsd:string"/>
+            <xsd:element name="password" type="xsd:string"/>
+            <xsd:element name="firstName" type="xsd:string"/>
+            <xsd:element name="lastName" type="xsd:string"/>
+            <xsd:element name="birthday" type="xsd:date"/>
+            <xsd:element name="role" type="common:RoleType"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="userModifyRequestType">
+        <xsd:sequence>
+            <xsd:element name="username" type="xsd:string"/>
+            <xsd:element name="firstName" type="xsd:string"/>
+            <xsd:element name="lastName" type="xsd:string"/>
+            <xsd:element name="birthday" type="xsd:date"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="userPasswordModifyRequestType">
+        <xsd:sequence>
+            <xsd:element name="username" type="xsd:string"/>
+            <xsd:element name="oldPassword" type="xsd:string"/>
+            <xsd:element name="newPassword" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="userLoginRequestType">
+        <xsd:sequence>
+            <xsd:element name="username" type="xsd:string"/>
+            <xsd:element name="password" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="paramEntry">
+        <xsd:sequence>
+            <xsd:element name="key" type="xsd:string"/>
+            <xsd:element name="value" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="paramMapType">
+        <xsd:sequence>
+            <xsd:element name="entry" type="paramEntry" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="groupResponseType">
+        <xsd:complexContent>
+            <xsd:extension base="common:baseResponseType">
+                <xsd:sequence>
+                    <xsd:element name="group" type="groupType"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:element name="groupResponse">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="groupResponseType"/>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:simpleType name="permissionEnumType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="createGroup"/>
+            <xsd:enumeration value="createTask"/>
+            <xsd:enumeration value="addSolutionTask"/>
+            <xsd:enumeration value="checkResultTask"/>
+            <xsd:enumeration value="userManagement"/>
+            <xsd:enumeration value="activeGroup"/>
+            <xsd:enumeration value="closableGroup"/>
+            <xsd:enumeration value="solutionRemove"/>
+            <xsd:enumeration value="deleteUser"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:complexType name="permissionType">
+        <xsd:sequence>
+            <xsd:element name="permission" type="permissionEnumType"/>
+            <xsd:element name="parameterMap" type="paramMapType"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="permissionListType">
+        <xsd:sequence>
+            <xsd:element name="permissionList" type="permissionType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+
+    <xsd:complexType name="userPermissionRequestType">
+        <xsd:sequence>
+            <xsd:element name="username" type="xsd:string"/>
+            <xsd:element name="permission" type="permissionType"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="userDetailsType">
+        <xsd:sequence>
+            <xsd:element name="firstName" type="xsd:string"/>
+            <xsd:element name="lastName" type="xsd:string"/>
+            <xsd:element name="username" type="xsd:string"/>
+            <xsd:element name="point" type="xsd:int"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="userFullDetailsType">
+        <xsd:sequence>
+            <xsd:element name="username" type="xsd:string"/>
+            <xsd:element name="firstName" type="xsd:string"/>
+            <xsd:element name="lastName" type="xsd:string"/>
+            <xsd:element name="birthday" type="xsd:date"/>
+            <xsd:element name="role" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="generateGroupRequestType">
+        <xsd:sequence>
+            <xsd:element name="groupName" type="xsd:string"/>
+            <xsd:element name="customerUser" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="userDetailsListType">
+        <xsd:sequence>
+            <xsd:element name="customerUserList" type="userDetailsType" maxOccurs="10" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="userFullDetailsListType">
+        <xsd:sequence>
+            <xsd:element name="customerUserList" type="userFullDetailsType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="groupType">
+        <xsd:sequence>
+            <xsd:element name="groupName" type="xsd:string"/>
+            <xsd:element name="active" type="xsd:boolean"/>
+            <xsd:element name="admin" type="userDetailsType"/>
+            <xsd:element name="customerUserList" type="userDetailsListType"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="userGroupListResponseType">
+        <xsd:complexContent>
+            <xsd:extension base="common:baseResponseType">
+                <xsd:sequence>
+                    <xsd:element name="groupList" type="groupType" minOccurs="0" maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="addingUserType">
+        <xsd:sequence>
+            <xsd:element name="username" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="addingUserListType">
+        <xsd:sequence>
+            <xsd:element name="customerUser" type="addingUserType" maxOccurs="unbounded" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="addingUserRequestType">
+        <xsd:sequence>
+            <xsd:element name="username" type="xsd:string"/>
+            <xsd:element name="groupName" type="xsd:string"/>
+            <xsd:element name="customerUserList" type="addingUserListType"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="removeUserRequestType">
+        <xsd:sequence>
+            <xsd:element name="username" type="xsd:string"/>
+            <xsd:element name="customerUserList" type="addingUserListType"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="addedUserResponseType">
+        <xsd:complexContent>
+            <xsd:extension base="common:baseResponseType">
+                <xsd:sequence>
+                    <xsd:element name="userDetails" type="userDetailsListType"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+
+    <xsd:element name="userRegistrationRequest">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="userRegistrationRequestType"/>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="userPermissionRequest">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="userPermissionRequestType"/>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="userLoginRequest">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="userLoginRequestType"/>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="generateGroupRequest">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="generateGroupRequestType"/>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="userGroupListResponse">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="userGroupListResponseType"/>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="userDetailsResponse">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="common:baseResponseType">
+                    <xsd:sequence>
+                        <xsd:element name="userDetails" type="userFullDetailsType"/>
+                    </xsd:sequence>
+                </xsd:extension>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="userDetailsListResponse">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="common:baseResponseType">
+                    <xsd:sequence>
+                        <xsd:element name="userDetailsList" type="userFullDetailsListType"/>
+                    </xsd:sequence>
+                </xsd:extension>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="addingUserRequest">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="addingUserRequestType"/>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="addedUserResponse">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="addedUserResponseType"/>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="userModifyRequest">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="userModifyRequestType"/>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="userPasswordModifyRequest">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="userPasswordModifyRequestType"/>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

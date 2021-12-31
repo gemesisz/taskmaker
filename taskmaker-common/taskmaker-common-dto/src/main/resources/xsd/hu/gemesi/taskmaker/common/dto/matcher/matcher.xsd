@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://matcher.dto.taskmaker.gemesi.hu/matcher"
+            xmlns:common="http://common.dto.taskmaker.gemesi.hu/common"
+            targetNamespace="http://matcher.dto.taskmaker.gemesi.hu/matcher"
+            elementFormDefault="qualified" attributeFormDefault="unqualified">
+    <xsd:complexType name="createTaskRequestType">
+        <xsd:sequence>
+            <xsd:element name="username" type="xsd:string"/>
+            <xsd:element name="groupName" type="xsd:string"/>
+            <xsd:element name="taskName" type="xsd:string"/>
+            <xsd:element name="description" type="xsd:string"/>
+            <xsd:element name="point" type="xsd:int"/>
+            <xsd:element name="deadline" type="xsd:dateTime"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="taskResultType">
+        <xsd:sequence>
+            <xsd:element name="userPoint" type="xsd:int"/>
+            <xsd:element name="resultComment" type="xsd:string"/>
+            <xsd:element name="username" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="taskResponseType">
+        <xsd:sequence>
+            <xsd:element name="taskName" type="xsd:string"/>
+            <xsd:element name="description" type="xsd:string"/>
+            <xsd:element name="point" type="xsd:int"/>
+            <xsd:element name="deadline" type="xsd:dateTime"/>
+            <xsd:element name="result" type="taskResultType"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="taskListResponseType">
+        <xsd:sequence>
+            <xsd:element name="taskList" type="taskResponseType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="fileType">
+        <xsd:sequence>
+            <xsd:element name="fileName" type="xsd:string"/>
+            <xsd:element name="data" type="xsd:base64Binary"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="solutionType">
+        <xsd:sequence>
+            <xsd:element name="fileName" type="xsd:string"/>
+            <xsd:element name="fullPath" type="xsd:string"/>
+            <xsd:element name="username" type="xsd:string"/>
+            <xsd:element name="solution" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="solutionListResponseType">
+        <xsd:complexContent>
+            <xsd:extension base="common:baseResponseType">
+                <xsd:sequence>
+                    <xsd:element name="solutionItem" type="solutionType" minOccurs="0" maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="saveResultType">
+        <xsd:sequence>
+            <xsd:element name="username" type="xsd:string"/>
+            <xsd:element name="group" type="xsd:string"/>
+            <xsd:element name="task" type="xsd:string"/>
+            <xsd:element name="customerUser" type="xsd:string"/>
+            <xsd:element name="resultComment" type="xsd:string"/>
+            <xsd:element name="points" type="xsd:int"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="uploadResultType">
+        <xsd:sequence>
+            <xsd:element name="username" type="xsd:string"/>
+            <xsd:element name="groupName" type="xsd:string"/>
+            <xsd:element name="taskName" type="xsd:string"/>
+            <xsd:element name="optionalResult" type="xsd:string"/>
+            <xsd:element name="fileResult" type="fileType"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="pointsType">
+        <xsd:sequence>
+            <xsd:element name="username" type="xsd:string"/>
+            <xsd:element name="point" type="xsd:int"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="pointsListType">
+        <xsd:complexContent>
+            <xsd:extension base="common:baseResponseType">
+                <xsd:sequence>
+                    <xsd:element name="pointInfo" type="pointsType" minOccurs="0" maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:element name="taskResponse">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="common:baseResponseType">
+                    <xsd:sequence>
+                        <xsd:element name="task" type="taskResponseType"/>
+                    </xsd:sequence>
+                </xsd:extension>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="taskListResponse">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="common:baseResponseType">
+                    <xsd:sequence>
+                        <xsd:element name="taskList" type="taskListResponseType"/>
+                    </xsd:sequence>
+                </xsd:extension>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="createTaskRequest">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="createTaskRequestType"/>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="resultUploadRequest">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="uploadResultType"/>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="solutionResponse">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="solutionListResponseType"/>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="saveResultRequest">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="saveResultType"/>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="pointListResponse">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="pointsListType"/>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+</xsd:schema>

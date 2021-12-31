@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://prize.dto.taskmaker.gemesi.hu/prize"
+            xmlns:common="http://common.dto.taskmaker.gemesi.hu/common"
+            targetNamespace="http://prize.dto.taskmaker.gemesi.hu/prize"
+            elementFormDefault="qualified" attributeFormDefault="unqualified">
+    <xsd:complexType name="prizeType">
+        <xsd:sequence>
+            <xsd:element name="groupName" type="xsd:string"/>
+            <xsd:element name="prizeType" type="xsd:string"/>
+            <xsd:element name="imageName" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="prizeListType">
+        <xsd:sequence>
+            <xsd:element name="prize" type="prizeType" maxOccurs="unbounded" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="prizeListResponse">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="common:baseResponseType">
+                    <xsd:sequence>
+                        <xsd:element name="prizeList" type="prizeListType"/>
+                    </xsd:sequence>
+                </xsd:extension>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+
+</xsd:schema>

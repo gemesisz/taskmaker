@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="
+        http://java.sun.com/xml/ns/persistence
+        http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+
+    <persistence-unit name="defaultPU" transaction-type="JTA">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <jta-data-source>java:/jdbc/${service.name}DS</jta-data-source>
+        <mapping-file>META-INF/jpa-entity.xml</mapping-file>
+        <!-- optimalizacio - @Cacheable annotacio ignaralasa (nem hasznaljuk) -->
+        <shared-cache-mode>NONE</shared-cache-mode>
+        <!-- optimalizacio - Hibernate Validator kikapcsolasa (nem hasznaljuk) -->
+        <validation-mode>NONE</validation-mode>
+
+        <properties>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL9Dialect"/>
+            <!--             <property name="hibernate.hbm2ddl.auto" value="none"/> -->
+            <property name="hibernate.show_sql" value="false"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.connection.release_mode" value="auto"/>
+            <property name="hibernate.id.new_generator_mappings" value="false" />
+            <property name="hibernate.jpa.compliance.proxy" value="false" />
+            <property name="javax.persistence.schema-generation.database.action" value="create" />
+        </properties>
+
+    </persistence-unit>
+
+</persistence>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://userauth.dto.taskmaker.gemesi.hu/userauth"
+            xmlns:common="http://common.dto.taskmaker.gemesi.hu/common"
+            targetNamespace="http://userauth.dto.taskmaker.gemesi.hu/userauth"
+            elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+    <xsd:complexType name="LoginRequestType">
+        <xsd:complexContent>
+            <xsd:extension base="common:BaseRequestType">
+                <xsd:sequence>
+                    <xsd:element name="username" type="xsd:string"/>
+                    <xsd:element name="password" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="LoginResponseType">
+        <xsd:complexContent>
+            <xsd:extension base="common:BaseResponsesType">
+                <xsd:sequence>
+                    <xsd:element name="sessionData" type="common:SessionDataType"/>
+                    <xsd:element name="username" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:element name="LoginRequest">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="LoginRequestType"/>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="LoginResponse">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="LoginResponseType"/>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+
+</xsd:schema>
